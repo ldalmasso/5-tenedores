@@ -22,6 +22,8 @@ const accountStack = {
   tab: "AccountTab",
   root: "Account",
   add: "AccountAdd",
+  login: "Login",
+  register: "Register",
 };
 
 export const screen = {
