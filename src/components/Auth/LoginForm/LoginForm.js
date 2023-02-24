@@ -1,42 +1,45 @@
 import React, { useState } from "react";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
-import { useFormik } from "formik";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
+import { useFormik } from "formik";
 import Toast from "react-native-toast-message";
+import { initialValues, validationSchema } from "./LoginForm.Data";
 import { screen } from "../../../utils";
-import { initialValues, validationSchema } from "./RegisterForm.data";
-import { styles } from "./RegisterForm.Styles";
+import { styles } from "./LoginForm.Styles";
+import { async } from "@firebase/util";
 
-export function RegisterForm() {
+export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+
+  const navigator = useNavigation();
 
   const showHiddenPassword = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const navigator = useNavigation();
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: validationSchema(),
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
+        console.log(formValue);
         const auth = getAuth();
-        await createUserWithEmailAndPassword(
+        await signInWithEmailAndPassword(
           auth,
           formValue.email,
           formValue.password
         );
         navigator.navigate(screen.account.root);
       } catch (error) {
+        console.log(error);
         Toast.show({
           type: "error",
           position: "bottom",
-          text1: "Error al registrarse, intente más tarde.",
+          text1: "Email y contraseñas inválidos",
         });
-        console.log(error);
       }
     },
   });
@@ -45,48 +48,35 @@ export function RegisterForm() {
     <View style={styles.content}>
       <Input
         placeholder="Correo Electrónico"
-        containerStyle={styles.input}
+        style={styles.input}
+        rightIcon={
+          <Icon type="material-community" name="at" iconStyle={styles.icon} />
+        }
         onChangeText={(text) => formik.setFieldValue("email", text)}
         errorMessage={formik.errors.email}
-        rightIcon=<Icon
-          type="material-community"
-          name="at"
-          style={styles.icon}
-        />
       />
       <Input
         placeholder="Contraseña"
-        containerStyle={styles.input}
+        style={styles.input}
         secureTextEntry={showPassword ? false : true}
+        rightIcon={
+          <Icon
+            type="material-community"
+            name={showPassword ? "eye-off-outline" : "eye-outline"}
+            iconStyle={styles.icon}
+            onPress={showHiddenPassword}
+          />
+        }
         onChangeText={(text) => formik.setFieldValue("password", text)}
         errorMessage={formik.errors.password}
-        rightIcon=<Icon
-          type="material-community"
-          name={showPassword ? "eye-off-outline" : "eye-outline"}
-          style={styles.icon}
-          onPress={showHiddenPassword}
-        />
-      />
-      <Input
-        placeholder="Confirmar contraseña"
-        containerStyle={styles.input}
-        secureTextEntry={showPassword ? false : true}
-        onChangeText={(text) => formik.setFieldValue("repeatpassword", text)}
-        errorMessage={formik.errors.repeatpassword}
-        rightIcon=<Icon
-          type="material-community"
-          name={showPassword ? "eye-off-outline" : "eye-outline"}
-          style={styles.icon}
-          onPress={showHiddenPassword}
-        />
       />
       <Button
-        title="Unirse"
+        title="Iniciar Sesión"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={formik.handleSubmit}
         loading={formik.isSubmitting}
-      />
+      ></Button>
     </View>
   );
 }
