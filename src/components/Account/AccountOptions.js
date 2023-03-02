@@ -3,10 +3,12 @@ import { View } from "react-native";
 import { ListItem, Icon, Text } from "react-native-elements";
 import { Modal } from "../../components";
 import { ChangeDisplayNameForm } from "./ChangeDisplayNameForm";
-("./ChangeDisplayNameForm");
+import { ChangeEmailForm } from "./ChangeEmailForm";
+import { ChangePasswordForm } from "./ChangePasswordForm";
 import { map } from "lodash";
 
-export function AccountOptions() {
+export function AccountOptions(props) {
+  const { onReload } = props;
   const [showModal, setShowModal] = useState(false);
   const [renderComponent, setRenderComponent] = useState(null);
 
@@ -14,13 +16,22 @@ export function AccountOptions() {
 
   const selectedComponent = (key) => {
     if (key === "displayName") {
-      setRenderComponent(<ChangeDisplayNameForm onClose={onCloseOpenModal} />);
+      setRenderComponent(
+        <ChangeDisplayNameForm onClose={onCloseOpenModal} onReload={onReload} />
+      );
     }
     if (key === "displayEmail") {
-      setRenderComponent(<Text>Cambiar Email</Text>);
+      setRenderComponent(
+        <ChangeEmailForm onClose={onCloseOpenModal} onReload={onReload} />
+      );
     }
     if (key === "displayPassword") {
-      setRenderComponent(<Text>Cambiar Contraseña</Text>);
+      setRenderComponent(
+        <ChangePasswordForm
+          onClose={onCloseOpenModal}
+          onReload={onReload}
+        ></ChangePasswordForm>
+      );
     }
 
     onCloseOpenModal();

@@ -6,11 +6,13 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     width: 300,
   },
-  btnContainer: {
-    width: "100%",
-    marginTop: 10,
+  input: {
+    marginBottom: 10,
   },
   btn: {
     backgroundColor: "#00a680",
+  },
+  btnContainer: {
+    width: "95%",
   },
 });

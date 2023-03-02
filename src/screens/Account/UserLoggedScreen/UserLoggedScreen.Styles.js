@@ -14,4 +14,8 @@ export const styles = StyleSheet.create({
   btnText: {
     color: "#00a680",
   },
+  content: {
+    width: "95%",
+    alignSelf: "center",
+  },
 });
