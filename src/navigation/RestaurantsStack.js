@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RestaurantsScreen } from "../screens/Restaurants/RestaurantsScreen";
-import { AddRestaurants } from "../screens/Restaurants/AddRestaurants";
+import { AddRestaurantsScreen } from "../screens/Restaurants/AddRestaurantsScreen";
 import { screen } from "../utils";
 
 const Stack = createNativeStackNavigator();
@@ -15,7 +15,7 @@ export function RestaurantsStack() {
       ></Stack.Screen>
       <Stack.Screen
         name={screen.restaurant.add}
-        component={AddRestaurants}
+        component={AddRestaurantsScreen}
         options={{ title: "Añadir Restorant" }}
       ></Stack.Screen>
     </Stack.Navigator>
