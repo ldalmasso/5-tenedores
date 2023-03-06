@@ -25,7 +25,7 @@ export function LoginForm() {
     validateOnChange: false,
     onSubmit: async (formValue) => {
       try {
-        console.log(formValue);
+        //console.log(formValue);
         const auth = getAuth();
         await signInWithEmailAndPassword(
           auth,
@@ -34,7 +34,7 @@ export function LoginForm() {
         );
         navigator.navigate(screen.account.root);
       } catch (error) {
-        console.log(error);
+        //console.log(error);
         Toast.show({
           type: "error",
           position: "bottom",

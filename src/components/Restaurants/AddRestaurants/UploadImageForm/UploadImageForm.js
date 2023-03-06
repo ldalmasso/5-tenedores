@@ -45,7 +45,7 @@ export function UploadImageForm(props) {
 
     const imageUrl = await getDownloadURL(imageRef);
 
-    console.log(imageUrl);
+    //console.log(imageUrl);
 
     formik.setFieldValue("images", [...formik.values.images, imageUrl]);
     setIsLoading(false);

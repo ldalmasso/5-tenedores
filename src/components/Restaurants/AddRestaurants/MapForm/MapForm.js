@@ -21,7 +21,7 @@ export function MapForm(props) {
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
-      console.log(status);
+      //console.log(status);
 
       if (status !== "granted") {
         Toast.show({
@@ -38,7 +38,7 @@ export function MapForm(props) {
         latitudeDelta: 0.001,
         longitudeDelta: 0.001,
       });
-      console.log(location);
+      //console.log(location);
     })();
   }, []);
 
