@@ -18,7 +18,7 @@ export function ListRestaurants(props) {
       data={restaurants}
       renderItem={(doc) => {
         const restaurant = doc.item;
-        console.log(restaurant);
+        //console.log(restaurant);
         return (
           <TouchableOpacity onPress={() => goToRestaurant(restaurant)}>
             <View style={styles.restaurant}>
