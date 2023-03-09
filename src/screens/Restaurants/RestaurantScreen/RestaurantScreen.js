@@ -10,7 +10,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../utils";
 import { CarouselImages, Loading } from "../../../components/shared";
-import { Header, Info, BtnReviewForm } from "../../../components/Restaurant";
+import {
+  Header,
+  Info,
+  BtnReviewForm,
+  Review,
+} from "../../../components/Restaurant";
 import { styles } from "./RestaurantScreenStyles";
 
 export function RestaurantScreen(props) {
@@ -41,6 +46,7 @@ export function RestaurantScreen(props) {
       <Header restaurant={restaurant}></Header>
       <Info restaurant={restaurant}></Info>
       <BtnReviewForm restaurantId={restaurant.id}></BtnReviewForm>
+      <Review restaurantId={restaurant.id}></Review>
     </ScrollView>
   );
 }
