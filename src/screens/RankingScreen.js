@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { ScrollView, Text } from "react-native";
 import {
   collection,
   query,
@@ -7,7 +7,8 @@ import {
   onSnapshot,
   limit,
 } from "firebase/firestore";
-import { size, map } from "lodash";
+import { map } from "lodash";
+import { RestaurantRankig } from "../components/Restaurants";
 import { db } from "../utils";
 
 export function RankingScreen() {
@@ -22,13 +23,18 @@ export function RankingScreen() {
 
     onSnapshot(q, (snapshot) => {
       setRestaurants(snapshot.docs);
-      console.log(size(restaurants));
     });
   }, []);
 
   return (
-    <View>
-      <Text>Estamos en el screen de anking</Text>
-    </View>
+    <ScrollView>
+      {map(restaurants, (restaurant, index) => (
+        <RestaurantRankig
+          key={index}
+          index={index}
+          restaurant={restaurant.data()}
+        ></RestaurantRankig>
+      ))}
+    </ScrollView>
   );
 }

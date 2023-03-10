@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
     paddingVertical: 15,
   },
   name: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "bold",
   },
   iconContainer: {
