@@ -11,7 +11,7 @@ export function Header(props) {
         <Text style={styles.name}>{restaurant.name}</Text>
         <Rating
           imageSize={20}
-          readOnly
+          readonly={true}
           startingValue={restaurant.ratingMedia ? restaurant.ratingMedia : 0}
         ></Rating>
       </View>

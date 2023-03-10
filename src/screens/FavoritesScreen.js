@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { ScrollView, View, Text } from "react-native";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   doc,
@@ -10,15 +10,18 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { db } from "../utils";
-import { UserNotLogged, NotFoundRestaurants } from "../components/Favorites";
+import {
+  UserNotLogged,
+  NotFoundRestaurants,
+  RestaurantesFavorites,
+} from "../components/Favorites";
 import { Loading } from "../components/shared";
-import { size } from "lodash";
+import { size, map } from "lodash";
 
 export function FavoritesScreen() {
   const [hasLogged, setHasLogged] = useState(null);
   const [restaurants, setRestaurants] = useState(null);
   const auth = getAuth();
-  console.log(restaurants);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -55,13 +58,18 @@ export function FavoritesScreen() {
   if (!restaurants) {
     return <Loading show text="Cargando favoritos"></Loading>;
   }
-  if (size(restaurants) !== 0) {
+  if (size(restaurants) === 0) {
     return <NotFoundRestaurants></NotFoundRestaurants>;
   }
-  console.log(size(restaurants));
+
   return (
-    <View>
-      <Text>Estamos en el screen de Favorites</Text>
-    </View>
+    <ScrollView>
+      {map(restaurants, (item, key) => (
+        <RestaurantesFavorites
+          key={key}
+          restaurant={item}
+        ></RestaurantesFavorites>
+      ))}
+    </ScrollView>
   );
 }
